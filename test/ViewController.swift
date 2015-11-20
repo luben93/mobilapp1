@@ -8,18 +8,68 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+let myModel = Model()
+let myNotificationKey = "se.wahslen.myNotificationKey"
+
+class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        self.inputtest.delegate = self
+        self.inputtest2.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "NotificationSent", name: myNotificationKey, object: nil)
+        //test.text = myModel.first();
+     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    
 
+    @IBOutlet weak var test: UILabel!
+    @IBOutlet weak var inputtest: UITextField!
+    @IBOutlet weak var test2: UILabel!
+    @IBOutlet weak var inputtest2: UITextField!
+    @IBOutlet weak var Resultat: UILabel!
+    
+    @IBAction func inputtest2(sender: AnyObject) {
+        if let number = Double(inputtest2.text!){
+            myModel.calculate(number)
+            Resultat.text = "Kursen blev \(myModel.getText())";
+        }else{
+            Resultat.text = "gick ej"
+        }
+    }
+    
+    func NotificationSent(){
+      print("It works")
+    }
+    
+    @IBAction func inputtest(sender: AnyObject) {
+        if var number = Double(inputtest.text!){
+            number = number/2
+            Resultat.text = "Kursen blev \(number)"
+        }else{
+            Resultat.text = "gick"
+        }
+    }
+    
+    @IBAction func Testknapp(sender: AnyObject) {
+        myModel.LoadData();
+    }
+    
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 

@@ -14,6 +14,7 @@
 		CB650F7A1BDB64B2001D0E32 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB650F781BDB64B2001D0E32 /* LaunchScreen.storyboard */; };
 		CB650F851BDB64B2001D0E32 /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB650F841BDB64B2001D0E32 /* testTests.swift */; };
 		CB650F901BDB64B2001D0E32 /* testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB650F8F1BDB64B2001D0E32 /* testUITests.swift */; };
+		CBC7105D1BDBC8B500BE10F9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC7105C1BDBC8B500BE10F9 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		CB650F8B1BDB64B2001D0E32 /* testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB650F8F1BDB64B2001D0E32 /* testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testUITests.swift; sourceTree = "<group>"; };
 		CB650F911BDB64B2001D0E32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBC7105C1BDBC8B500BE10F9 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				CB650F6F1BDB64B2001D0E32 /* AppDelegate.swift */,
 				CB650F711BDB64B2001D0E32 /* ViewController.swift */,
+				CBC7105C1BDBC8B500BE10F9 /* Model.swift */,
 				CB650F731BDB64B2001D0E32 /* Main.storyboard */,
 				CB650F761BDB64B2001D0E32 /* Assets.xcassets */,
 				CB650F781BDB64B2001D0E32 /* LaunchScreen.storyboard */,
@@ -193,6 +196,7 @@
 				TargetAttributes = {
 					CB650F6B1BDB64B2001D0E32 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 3T3PJMFFPR;
 					};
 					CB650F7F1BDB64B2001D0E32 = {
 						CreatedOnToolsVersion = 7.1;
@@ -257,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB650F721BDB64B2001D0E32 /* ViewController.swift in Sources */,
+				CBC7105D1BDBC8B500BE10F9 /* Model.swift in Sources */,
 				CB650F701BDB64B2001D0E32 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,10 +402,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.Wahslen.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyr.lab1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -408,10 +417,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = se.Wahslen.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exyr.lab1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -482,6 +495,7 @@
 				CB650F961BDB64B2001D0E32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB650F971BDB64B2001D0E32 /* Build configuration list for PBXNativeTarget "testTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +504,7 @@
 				CB650F991BDB64B2001D0E32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB650F9A1BDB64B2001D0E32 /* Build configuration list for PBXNativeTarget "testUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +513,7 @@
 				CB650F9C1BDB64B2001D0E32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
