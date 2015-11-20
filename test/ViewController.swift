@@ -9,7 +9,7 @@
 import UIKit
 
 let myModel = Model()
-let myNotificationKey = "se.wahslen.myNotificationKey"
+let myNotificationKey = "com.exyr.myNotificationKey"
 
 class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate {
     
@@ -17,48 +17,48 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.inputtest.delegate = self
-        self.inputtest2.delegate = self
+        //self.inputtest2.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "NotificationSent", name: myNotificationKey, object: nil)
         //test.text = myModel.first();
-     }
-
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     
-
     @IBOutlet weak var test: UILabel!
     @IBOutlet weak var inputtest: UITextField!
     @IBOutlet weak var test2: UILabel!
-    @IBOutlet weak var inputtest2: UITextField!
+    //@IBOutlet weak var inputtest2: UITextField!
     @IBOutlet weak var Resultat: UILabel!
     
-    @IBAction func inputtest2(sender: AnyObject) {
-        if let number = Double(inputtest2.text!){
-            myModel.calculate(number)
-            Resultat.text = "Kursen blev \(myModel.getText())";
-        }else{
-            Resultat.text = "gick ej"
-        }
-    }
-    
+//    @IBAction func inputtest2(sender: AnyObject) {
+//        if let number = Double(inputtest2.text!){
+//            myModel.calculate(number)
+//            Resultat.text = "Kursen blev \(myModel.getText())";
+//        }else{
+//            Resultat.text = "gick ej"
+//        }
+//    }
+//    
     func NotificationSent(){
       print("It works")
     }
     
     @IBAction func inputtest(sender: AnyObject) {
-        if var number = Double(inputtest.text!){
-            number = number/2
-            Resultat.text = "Kursen blev \(number)"
+        if let number = Double(inputtest.text!){
+            myModel.calculate(number)
+            Resultat.text = "Kursen blev \(myModel.getText())"
         }else{
             Resultat.text = "gick"
         }
     }
     
     @IBAction func Testknapp(sender: AnyObject) {
-        myModel.LoadData();
+        print("knasig knapp")
+        myModel.LoadData()
     }
     
     

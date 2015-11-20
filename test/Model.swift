@@ -11,37 +11,64 @@ import Foundation
 
 class Model: NSObject, NSXMLParserDelegate {
     
-    var currencyValue = [Dictionary<Double, String>()]
+    var currencyValue = [Dictionary< String,Double>()]
     var currencyString = [Dictionary<String, String>()]
-    
+    var fromCurrency: String
+    var toCurrency: String
     var number: Double
-    var FirstCurrency: Int
-    var SecondCurrency: Int
+   // var FirstCurrency: Int
+   // var SecondCurrency: Int
     
     override init(){
-     number = 3.0
-     FirstCurrency = 1
-     SecondCurrency = 3
-     currencyValue.append([1.1084:"USD",133.80:"JPY",27.074:"CZK",7.4597:"DKK",0.71955:"GBP",4.2529:"PLN",4.4269:"RON",9.4079:"SEK",1.0:"EURO"])
-     currencyString.append(["🇺🇸 US Dollar":"USD","🇯🇵 Japanese yen":"JPY","🇵🇭 Czech koruna":"CZK","🇩🇰 Danish krone":"DKK","🇬🇧 Pound sterling":"GBP","🇮🇩 Polish zloty":"PLN","🇸🇪 Swedish krona":"SEK","🇪🇺 Europeriska EURO":"EURO"])
+        fromCurrency="SEK"
+        toCurrency="EUR"
+     number = -1
+//     FirstCurrency = 1
+//     SecondCurrency = 3
+        currencyValue.append([
+            "USD"	:	1.1084,
+            "JPY"	:	133.80,
+            "CZK"	:	27.074,
+            "DKK"	:	7.4597,
+            "GBP"	:	0.7195,
+            "PLN"	:	4.2529,
+            "RON"	:	4.4269,
+            "SEK"	:	9.4079,
+            "EUR"	:		1.0		])
+        currencyValue[0]["EUR"]=1.0
+     currencyString.append(["🇺🇸 US Dollar":"USD","🇯🇵 Japanese yen":"JPY","🇵🇭 Czech koruna":"CZK","🇩🇰 Danish krone":"DKK","🇬🇧 Pound sterling":"GBP","🇮🇩 Polish zloty":"PLN","🇸🇪 Swedish krona":"SEK","🇪🇺 Europeriska EUR=":"EUR"])
      
         
     }
     
     
-    
     func calculate(){
-        print("test")
+        print("error ")
     }
     
     func calculate(_number: Double){
         NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
-         number = _number
+        print("calculating to:\(currencyValue[0][toCurrency]) from:\(currencyValue[0][fromCurrency])")
+        if let to=currencyValue[0][toCurrency]{
+            if let from = currencyValue[0][fromCurrency]{
+                print("to and from")
+                number = (_number/from)*to
+            }else{
+                print("from nil")
+                calculate()
+            }
+        }else{
+            //TODO better errorhandling
+            print("to nil")
+
+            calculate()
+        }
     }
     
     func getText()->Double{
        return number
     }
+    
 
     func LoadData(){
         
@@ -60,9 +87,13 @@ class Model: NSObject, NSXMLParserDelegate {
         task.resume()
     }
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-        print(attributeDict)
-        
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
+        print (attributeDict)
+        if let cur = attributeDict["currency"]{
+            if let rate = attributeDict["rate"]{
+                    currencyValue[0][cur]=Double(rate)
+            }
+        }
     }
 
 }

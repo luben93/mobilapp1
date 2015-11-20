@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,72 +18,74 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-bD-fex">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-bD-fex">
                                 <rect key="frame" x="183" y="86" width="97" height="30"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="kRe-IG-iPN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="go"/>
                                 <connections>
                                     <action selector="inputtest:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="NmZ-QF-Tfh"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-lb-fbR">
-                                <rect key="frame" x="169" y="343" width="97" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Uppdatera "/>
-                                <connections>
-                                    <action selector="Testknapp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lio-GK-TF8"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XC8-Nc-gfs">
-                                <rect key="frame" x="183" y="159" width="97" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="inputtest2:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="gMC-1f-wLu"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-4I-6vj">
-                                <rect key="frame" x="127" y="221" width="148" height="21"/>
+                                <rect key="frame" x="20" y="167" width="280" height="27"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🇪🇺 Europeiska EURO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWn-aw-tCZ">
-                                <rect key="frame" x="20" y="138" width="256" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🇪🇺 Europeiska EURO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWn-aw-tCZ">
+                                <rect key="frame" x="16" y="138" width="161" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🇸🇪 Svenska kronor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFT-pa-Zar">
-                                <rect key="frame" x="20" y="69" width="145" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🇸🇪 Svenska kronor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFT-pa-Zar">
+                                <rect key="frame" x="16" y="57" width="172" height="21"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="145" id="c68-kS-4Tm"/>
+                                    <constraint firstAttribute="width" constant="172" id="c68-kS-4Tm"/>
                                     <constraint firstAttribute="height" constant="21" id="jwB-f5-iK1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-lb-fbR">
+                                <rect key="frame" x="20" y="202" width="77" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Uppdatera "/>
+                                <connections>
+                                    <action selector="Testknapp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lio-GK-TF8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="BRt-bD-fex" secondAttribute="trailing" constant="24" id="6aK-lY-Za0"/>
+                            <constraint firstItem="aFT-pa-Zar" firstAttribute="leading" secondItem="iWn-aw-tCZ" secondAttribute="leading" id="7mj-sq-QC4"/>
+                            <constraint firstItem="aFT-pa-Zar" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="SNY-Kt-wxj"/>
+                            <constraint firstItem="aFT-pa-Zar" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fkg-YN-G5A"/>
+                            <constraint firstItem="iWn-aw-tCZ" firstAttribute="top" secondItem="BRt-bD-fex" secondAttribute="bottom" constant="22" id="s7X-Lx-2YJ"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="top" secondItem="aFT-pa-Zar" secondAttribute="bottom" constant="8" symbolic="YES" id="zcU-2e-rV1"/>
+                        </constraints>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="Resultat" destination="Lm5-4I-6vj" id="oO1-UO-jpG"/>
                         <outlet property="inputtest" destination="BRt-bD-fex" id="5A8-UF-eu0"/>
-                        <outlet property="inputtest2" destination="XC8-Nc-gfs" id="Vhg-Zt-Ro1"/>
                         <outlet property="test2" destination="iWn-aw-tCZ" id="tme-wa-QR5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="429"/>
+            <point key="canvasLocation" x="219" y="348"/>
         </scene>
     </scenes>
 </document>
