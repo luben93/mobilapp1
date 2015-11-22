@@ -35,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F4A3BC01C0209AA00BFDF9B /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		CB650F6C1BDB64B2001D0E32 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB650F6F1BDB64B2001D0E32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB650F711BDB64B2001D0E32 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 				CB650F6F1BDB64B2001D0E32 /* AppDelegate.swift */,
 				CB650F711BDB64B2001D0E32 /* ViewController.swift */,
 				CBC7105C1BDBC8B500BE10F9 /* Model.swift */,
+				5F4A3BC01C0209AA00BFDF9B /* MyPlayground.playground */,
 				CB650F731BDB64B2001D0E32 /* Main.storyboard */,
 				CB650F761BDB64B2001D0E32 /* Assets.xcassets */,
 				CB650F781BDB64B2001D0E32 /* LaunchScreen.storyboard */,

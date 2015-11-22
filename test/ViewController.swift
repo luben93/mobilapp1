@@ -59,6 +59,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBAction func Testknapp(sender: AnyObject) {
         print("knasig knapp")
         myModel.LoadData()
+        print("knasig knapp avslutat")
     }
     
     
