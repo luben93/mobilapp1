@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0CBAE51C037304000B6A01 /* A-Stack-Of-Coins-2560x1600.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5F0CBAE41C037304000B6A01 /* A-Stack-Of-Coins-2560x1600.jpg */; };
 		CB650F701BDB64B2001D0E32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB650F6F1BDB64B2001D0E32 /* AppDelegate.swift */; };
 		CB650F721BDB64B2001D0E32 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB650F711BDB64B2001D0E32 /* ViewController.swift */; };
 		CB650F751BDB64B2001D0E32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB650F731BDB64B2001D0E32 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F0CBAE41C037304000B6A01 /* A-Stack-Of-Coins-2560x1600.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "A-Stack-Of-Coins-2560x1600.jpg"; sourceTree = "<group>"; };
 		5F4A3BC01C0209AA00BFDF9B /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		CB650F6C1BDB64B2001D0E32 /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB650F6F1BDB64B2001D0E32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				CBC7105C1BDBC8B500BE10F9 /* Model.swift */,
 				5F4A3BC01C0209AA00BFDF9B /* MyPlayground.playground */,
 				CB650F731BDB64B2001D0E32 /* Main.storyboard */,
+				5F0CBAE41C037304000B6A01 /* A-Stack-Of-Coins-2560x1600.jpg */,
 				CB650F761BDB64B2001D0E32 /* Assets.xcassets */,
 				CB650F781BDB64B2001D0E32 /* LaunchScreen.storyboard */,
 				CB650F7B1BDB64B2001D0E32 /* Info.plist */,
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB650F7A1BDB64B2001D0E32 /* LaunchScreen.storyboard in Resources */,
+				5F0CBAE51C037304000B6A01 /* A-Stack-Of-Coins-2560x1600.jpg in Resources */,
 				CB650F771BDB64B2001D0E32 /* Assets.xcassets in Resources */,
 				CB650F751BDB64B2001D0E32 /* Main.storyboard in Resources */,
 			);
