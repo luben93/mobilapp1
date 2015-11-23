@@ -54,12 +54,25 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBOutlet weak var inputtest: UITextField!
     @IBOutlet weak var test2: UILabel!
     @IBOutlet weak var Resultat: UILabel!
+    @IBOutlet weak var fromCurrency: UILabel!
+    @IBOutlet weak var toCurrency: UILabel!
     
     @IBOutlet weak var pickerView: UIPickerView!
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        myModel.updateCurrency(pickerDataSource[row],toFrom: component)
+        if let res = pickerDataSource[row].first{
+            myModel.updateCurrency(res.0,toFrom: component)
+            switch(component){
+            case 0: fromCurrency.text=res.0;break
+            case 1: toCurrency.text=res.0;break
+            default: break
+            }
+        }else{
+            print("error nil selecting pickerviewrow")
+        }
         
     }
+    
+    
     
     var pickerDataSource = myModel.getCurrencys()
     
@@ -71,7 +84,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBAction func inputtest(sender: AnyObject) {
         if let number = Double(inputtest.text!){
             myModel.calculate(number)
-            Resultat.text = "Kursen blev \(myModel.getText())"
+            Resultat.text = String(format: "%.3f", myModel.getText())
         }else{
             Resultat.text = "gick inte"
         }

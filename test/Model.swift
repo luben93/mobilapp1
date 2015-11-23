@@ -87,11 +87,11 @@ class Model: NSObject, NSXMLParserDelegate {
         print("error calculate")
     }
     
-    func updateCurrency(currency: [String:String],toFrom:Int){
+    func updateCurrency(currency: String,toFrom:Int){
         if toFrom == 0 {
-            fromCurrency = currency.first!.0
+            fromCurrency = currency
         }else{
-            toCurrency = currency.first!.0
+            toCurrency = currency
         }
     }
     
@@ -112,7 +112,7 @@ class Model: NSObject, NSXMLParserDelegate {
     }
     
     func getText()->Double{
-        return number
+       return number
     }
     
     func LoadData(){
