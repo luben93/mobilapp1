@@ -57,13 +57,12 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     
     @IBOutlet weak var pickerView: UIPickerView!
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        print ("\(row) \(component)selcted")
         myModel.updateCurrency(pickerDataSource[row],toFrom: component)
         
     }
     
     var pickerDataSource = myModel.getCurrencys()
-       // ["🇺🇸 US Dollar"	,"🇯🇵 Japanese yen"	,"🇵🇭 Czech koruna"	,"🇩🇰 Danish krone"	, "🇬🇧 Pound sterling","🇮🇩 Polish zloty"	,"🇸🇪 Swedish krona","🇪🇺 Europeriska EUR"]
+    
     
     func NotificationSent(){
       print("It works")
@@ -74,12 +73,11 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
             myModel.calculate(number)
             Resultat.text = "Kursen blev \(myModel.getText())"
         }else{
-            Resultat.text = "gick"
+            Resultat.text = "gick inte"
         }
     }
     
     @IBAction func Testknapp(sender: AnyObject) {
-        print("knasig knapp")
         myModel.LoadData()
     }
     
