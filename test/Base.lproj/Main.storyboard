@@ -103,22 +103,21 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="top" secondItem="uIT-mS-97y" secondAttribute="bottom" constant="195" id="CTt-ZD-3VU"/>
+                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1HE-eN-f0Z"/>
+                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="leading" secondItem="uIT-mS-97y" secondAttribute="leading" id="5Bg-EQ-liu"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GYH-U8-oGT"/>
-                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="centerX" secondItem="uIT-mS-97y" secondAttribute="centerX" id="GwB-ft-o7K"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="top" secondItem="uIT-mS-97y" secondAttribute="bottom" constant="-123" id="MlI-Bb-BLg"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Y5I-ZR-Dsj" secondAttribute="bottom" constant="-32" id="MtB-vT-aUg"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="leading" secondItem="uIT-mS-97y" secondAttribute="leading" id="RPK-ia-Tr4"/>
                             <constraint firstItem="uIT-mS-97y" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="9" id="Y66-3z-ZBU"/>
                             <constraint firstItem="uIT-mS-97y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dod-5b-xq9"/>
+                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="top" secondItem="uIT-mS-97y" secondAttribute="bottom" constant="53" id="ntq-UL-vcg"/>
                             <constraint firstAttribute="bottom" secondItem="uIT-mS-97y" secondAttribute="bottom" constant="400" id="nwN-6W-vxR"/>
-                            <constraint firstItem="bZ3-zH-XwY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="q1n-d5-hOI"/>
                             <constraint firstAttribute="trailing" secondItem="uIT-mS-97y" secondAttribute="trailing" id="wcl-mb-y2N"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="nwN-6W-vxR"/>
-                                <exclude reference="CTt-ZD-3VU"/>
                             </mask>
                         </variation>
                     </view>
