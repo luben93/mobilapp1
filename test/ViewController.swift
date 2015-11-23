@@ -11,11 +11,13 @@ import UIKit
 let myModel = Model()
 let myNotificationKey = "com.exyr.myNotificationKey"
 
-class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate ,UIPickerViewDataSource,UIPickerViewDelegate{
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.pickerView.dataSource = self
+        self.pickerView.delegate = self
         self.inputtest.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "NotificationSent", name: myNotificationKey, object: nil)
         myModel.LoadData()
@@ -25,11 +27,36 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
         super.didReceiveMemoryWarning()
     }
 
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerDataSource.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        
+        return pickerDataSource[row]
+    }
+    
     
     @IBOutlet weak var test: UILabel!
     @IBOutlet weak var inputtest: UITextField!
     @IBOutlet weak var test2: UILabel!
     @IBOutlet weak var Resultat: UILabel!
+    
+    @IBOutlet weak var pickerView: UIPickerView!
+    
+    var pickerDataSource = ["🇺🇸 US Dollar"	,
+        "🇯🇵 Japanese yen"	,
+        "🇵🇭 Czech koruna"	,
+        "🇩🇰 Danish krone"	,
+        "🇬🇧 Pound sterling",
+        "🇮🇩 Polish zloty"	,
+        "🇸🇪 Swedish krona",
+        "🇪🇺 Europeriska EUR"]
     
     func NotificationSent(){
       print("It works")

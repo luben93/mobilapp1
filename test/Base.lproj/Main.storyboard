@@ -18,11 +18,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-4I-6vj">
+                                <rect key="frame" x="232" y="149" width="72" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-lb-fbR">
+                                <rect key="frame" x="20" y="151" width="77" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Uppdatera "/>
+                                <connections>
+                                    <action selector="Testknapp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lio-GK-TF8"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-bD-fex">
-                                <rect key="frame" x="183" y="86" width="97" height="30"/>
+                                <rect key="frame" x="232" y="38" width="72" height="30"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="97" id="kRe-IG-iPN"/>
+                                    <constraint firstAttribute="width" constant="72" id="kRe-IG-iPN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
@@ -30,49 +45,25 @@
                                     <action selector="inputtest:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="NmZ-QF-Tfh"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-4I-6vj">
-                                <rect key="frame" x="20" y="167" width="280" height="27"/>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkx-mH-sDh">
+                                <rect key="frame" x="20" y="0.0" width="204" height="107"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🇪🇺 Europeiska EURO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWn-aw-tCZ">
-                                <rect key="frame" x="16" y="138" width="161" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🇸🇪 Svenska kronor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFT-pa-Zar">
-                                <rect key="frame" x="16" y="57" width="172" height="21"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="172" id="c68-kS-4Tm"/>
-                                    <constraint firstAttribute="height" constant="21" id="jwB-f5-iK1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-lb-fbR">
-                                <rect key="frame" x="20" y="202" width="77" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Uppdatera "/>
                                 <connections>
-                                    <action selector="Testknapp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lio-GK-TF8"/>
+                                    <outlet property="dataSource" destination="8bC-Xf-vdC" id="mX7-Q3-oeR"/>
+                                    <outlet property="delegate" destination="8bC-Xf-vdC" id="yud-zg-eM1"/>
                                 </connections>
-                            </button>
+                            </pickerView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="BRt-bD-fex" secondAttribute="trailing" constant="24" id="6aK-lY-Za0"/>
-                            <constraint firstItem="aFT-pa-Zar" firstAttribute="leading" secondItem="iWn-aw-tCZ" secondAttribute="leading" id="7mj-sq-QC4"/>
-                            <constraint firstItem="aFT-pa-Zar" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="37" id="SNY-Kt-wxj"/>
-                            <constraint firstItem="aFT-pa-Zar" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fkg-YN-G5A"/>
-                            <constraint firstItem="iWn-aw-tCZ" firstAttribute="top" secondItem="BRt-bD-fex" secondAttribute="bottom" constant="22" id="s7X-Lx-2YJ"/>
-                            <constraint firstItem="BRt-bD-fex" firstAttribute="top" secondItem="aFT-pa-Zar" secondAttribute="bottom" constant="8" symbolic="YES" id="zcU-2e-rV1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BRt-bD-fex" secondAttribute="trailing" id="6aK-lY-Za0"/>
+                            <constraint firstItem="Lm5-4I-6vj" firstAttribute="top" secondItem="BRt-bD-fex" secondAttribute="bottom" constant="81" id="FAk-Ub-76r"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="leading" secondItem="Lkx-mH-sDh" secondAttribute="trailing" constant="8" symbolic="YES" id="ZwV-Bc-Bjr"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="trailing" secondItem="Lm5-4I-6vj" secondAttribute="trailing" id="jH3-oJ-Xc5"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="jWY-SK-qZf"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="leading" secondItem="Lm5-4I-6vj" secondAttribute="leading" id="lJN-rF-SLl"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="centerY" secondItem="Lkx-mH-sDh" secondAttribute="centerY" id="pvj-iy-vai"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -80,7 +71,7 @@
                     <connections>
                         <outlet property="Resultat" destination="Lm5-4I-6vj" id="oO1-UO-jpG"/>
                         <outlet property="inputtest" destination="BRt-bD-fex" id="5A8-UF-eu0"/>
-                        <outlet property="test2" destination="iWn-aw-tCZ" id="tme-wa-QR5"/>
+                        <outlet property="pickerView" destination="Lkx-mH-sDh" id="sDt-GB-OeG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

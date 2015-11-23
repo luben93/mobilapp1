@@ -65,6 +65,9 @@ class Model: NSObject, NSXMLParserDelegate {
         
     }
     
+    func getCurrencys() -> [String : String]{
+         return currencyString[0]
+    }
     
     func calculate(){
         print("error calculate")
