@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="29" width="320" height="94"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IS4-rw-Ax9">
-                                        <rect key="frame" x="277" y="20" width="35" height="21"/>
+                                        <rect key="frame" x="277" y="20" width="47" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,7 +63,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yO5-w1-ldG">
-                                        <rect key="frame" x="277" y="53" width="35" height="21"/>
+                                        <rect key="frame" x="277" y="53" width="43" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -106,6 +106,7 @@
                             <constraint firstItem="bZ3-zH-XwY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1HE-eN-f0Z"/>
                             <constraint firstItem="bZ3-zH-XwY" firstAttribute="leading" secondItem="uIT-mS-97y" secondAttribute="leading" id="5Bg-EQ-liu"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GYH-U8-oGT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IS4-rw-Ax9" secondAttribute="trailing" constant="-20" id="Jrh-p7-UqF"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="top" secondItem="uIT-mS-97y" secondAttribute="bottom" constant="-123" id="MlI-Bb-BLg"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Y5I-ZR-Dsj" secondAttribute="bottom" constant="-32" id="MtB-vT-aUg"/>
                             <constraint firstItem="Y5I-ZR-Dsj" firstAttribute="leading" secondItem="uIT-mS-97y" secondAttribute="leading" id="RPK-ia-Tr4"/>
