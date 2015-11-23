@@ -12,9 +12,9 @@ import Foundation
 class Model: NSObject, NSXMLParserDelegate {
     
     var currencyValue = [String : Double]()
-    var currencyString = [Dictionary<String, String>()]
-    var fromCurrency = "SEK"
-    var toCurrency = "EUR"
+    var currencyString = [Dictionary<String,String>]()
+    var fromCurrency = "USD"
+    var toCurrency = "USD"
     var number = -1.0
     let save = NSUserDefaults.standardUserDefaults()
     var lastUpdateTime:String //= "2014-11-10"
@@ -61,16 +61,31 @@ class Model: NSObject, NSXMLParserDelegate {
         }else{
             print("error do date")
         }
-        currencyString.append(["🇺🇸 US Dollar":"USD","🇯🇵 Japanese yen":"JPY","🇵🇭 Czech koruna":"CZK","🇩🇰 Danish krone":"DKK","🇬🇧 Pound sterling":"GBP","🇮🇩 Polish zloty":"PLN","🇸🇪 Swedish krona":"SEK","🇪🇺 Europeriska EUR=":"EUR"])
+        currencyString.append(["USD":"🇺🇸  Dollar"	])
+        currencyString.append(["JPY":"🇯🇵  yen"	])
+        currencyString.append(["CZK":"🇵🇭  koruna"	])
+        currencyString.append(["DKK":"🇩🇰  krone"	])
+        currencyString.append(["GBP":"🇬🇧  sterling"	])
+        currencyString.append(["PLN":"🇮🇩  zloty"	])
+        currencyString.append(["SEK":"🇸🇪  krona"	])
+        currencyString.append(["EUR":"🇪🇺  EUR"	])
         
     }
     
-    func getCurrencys() -> [String : String]{
-         return currencyString[0]
+    func getCurrencys() -> [Dictionary<String,String>]{
+         return currencyString
     }
     
     func calculate(){
         print("error calculate")
+    }
+    
+    func updateCurrency(currency: [String:String],toFrom:Int){
+        if toFrom == 0 {
+            fromCurrency = currency.first!.0
+        }else{
+            toCurrency = currency.first!.0
+        }
     }
     
     func calculate(_number: Double){
@@ -171,11 +186,22 @@ class Model: NSObject, NSXMLParserDelegate {
         }
         if let cur = attributeDict["currency"]{
             if let rate = attributeDict["rate"]{
+               // currencyString.append(cur)
                 
                 currencyValue[cur]=Double(rate)
                 print(currencyValue[cur])
             }
         }
     }
+    
+    func addFlagsCurrency(str:String){
+        for currency in currencyString{
+            if let _ = currency[str]{
+                return
+            }
+        }
+        currencyString.append([str:str])
+    }
+    
     
 }

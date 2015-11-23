@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     }
 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -36,9 +36,17 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        //print(component)
+        if let out = pickerDataSource[row].first{
+            switch(component){
+            case 0:return out.1
+            case 1:return "\(out.1) ="
+            default: return "error"
+            }
+        }else{
+                return "error"
+        }
         
-        
-        return pickerDataSource[row]
     }
     
     
@@ -48,15 +56,14 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBOutlet weak var Resultat: UILabel!
     
     @IBOutlet weak var pickerView: UIPickerView!
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        print ("\(row) \(component)selcted")
+        myModel.updateCurrency(pickerDataSource[row],toFrom: component)
+        
+    }
     
-    var pickerDataSource = ["🇺🇸 US Dollar"	,
-        "🇯🇵 Japanese yen"	,
-        "🇵🇭 Czech koruna"	,
-        "🇩🇰 Danish krone"	,
-        "🇬🇧 Pound sterling",
-        "🇮🇩 Polish zloty"	,
-        "🇸🇪 Swedish krona",
-        "🇪🇺 Europeriska EUR"]
+    var pickerDataSource = myModel.getCurrencys()
+       // ["🇺🇸 US Dollar"	,"🇯🇵 Japanese yen"	,"🇵🇭 Czech koruna"	,"🇩🇰 Danish krone"	, "🇬🇧 Pound sterling","🇮🇩 Polish zloty"	,"🇸🇪 Swedish krona","🇪🇺 Europeriska EUR"]
     
     func NotificationSent(){
       print("It works")

@@ -19,14 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lm5-4I-6vj">
-                                <rect key="frame" x="232" y="149" width="72" height="21"/>
+                                <rect key="frame" x="284" y="290" width="24" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-lb-fbR">
-                                <rect key="frame" x="20" y="151" width="77" height="30"/>
+                                <rect key="frame" x="20" y="28" width="77" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Uppdatera "/>
                                 <connections>
@@ -34,10 +34,10 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-bD-fex">
-                                <rect key="frame" x="232" y="38" width="72" height="30"/>
+                                <rect key="frame" x="103" y="28" width="205" height="30"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="kRe-IG-iPN"/>
+                                    <constraint firstAttribute="width" constant="205" id="kRe-IG-iPN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
@@ -45,8 +45,8 @@
                                     <action selector="inputtest:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="NmZ-QF-Tfh"/>
                                 </connections>
                             </textField>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkx-mH-sDh">
-                                <rect key="frame" x="20" y="0.0" width="204" height="107"/>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkx-mH-sDh">
+                                <rect key="frame" x="20" y="66" width="280" height="216"/>
                                 <animations/>
                                 <connections>
                                     <outlet property="dataSource" destination="8bC-Xf-vdC" id="mX7-Q3-oeR"/>
@@ -57,16 +57,12 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="BRt-bD-fex" secondAttribute="trailing" id="6aK-lY-Za0"/>
-                            <constraint firstItem="Lm5-4I-6vj" firstAttribute="top" secondItem="BRt-bD-fex" secondAttribute="bottom" constant="81" id="FAk-Ub-76r"/>
-                            <constraint firstItem="BRt-bD-fex" firstAttribute="leading" secondItem="Lkx-mH-sDh" secondAttribute="trailing" constant="8" symbolic="YES" id="ZwV-Bc-Bjr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BRt-bD-fex" secondAttribute="trailing" constant="-4" id="6aK-lY-Za0"/>
+                            <constraint firstItem="Lm5-4I-6vj" firstAttribute="top" secondItem="BRt-bD-fex" secondAttribute="bottom" constant="232" id="FAk-Ub-76r"/>
                             <constraint firstItem="BRt-bD-fex" firstAttribute="trailing" secondItem="Lm5-4I-6vj" secondAttribute="trailing" id="jH3-oJ-Xc5"/>
-                            <constraint firstItem="BRt-bD-fex" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="18" id="jWY-SK-qZf"/>
-                            <constraint firstItem="BRt-bD-fex" firstAttribute="leading" secondItem="Lm5-4I-6vj" secondAttribute="leading" id="lJN-rF-SLl"/>
-                            <constraint firstItem="BRt-bD-fex" firstAttribute="centerY" secondItem="Lkx-mH-sDh" secondAttribute="centerY" id="pvj-iy-vai"/>
+                            <constraint firstItem="BRt-bD-fex" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="jWY-SK-qZf"/>
                         </constraints>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="Resultat" destination="Lm5-4I-6vj" id="oO1-UO-jpG"/>
@@ -76,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="219" y="348"/>
+            <point key="canvasLocation" x="210" y="337"/>
         </scene>
     </scenes>
 </document>
