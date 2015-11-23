@@ -17,35 +17,19 @@ class Model: NSObject, NSXMLParserDelegate {
     var toCurrency = "USD"
     var number = -1.0
     let save = NSUserDefaults.standardUserDefaults()
-    var lastUpdateTime:String //= "2014-11-10"
-    // var FirstCurrency: Int
-    // var SecondCurrency: Int
+    var lastUpdateTime:String
     
     override init(){
-                       // let format = NSDateFormatter()
-       // format.dateFormat = "yyyy-MM-dd"
-       // lastUpdateTime = format.dateFromString("2014-11-21")!
-       /*
-        currencyValue[   "USD"	] =  1.1084
-        currencyValue[   "JPY"	] =  133.80
-        currencyValue[   "CZK"	] =	27.074
-        currencyValue[   "DKK"	] =	7.4597
-        currencyValue[   "GBP"	] =	0.7195
-        currencyValue[   "PLN"	] =	4.2529
-        currencyValue[   "RON"	] =	4.4269
-        currencyValue[   "SEK"	] =	9.4079
-        currencyValue[   "EUR"	] =     1.0
-        */
         currencyValue["EUR"]=1.0
         lastUpdateTime = "2015-11-22"
         super.init()
-
+        
         if let tmp = save.stringForKey("time"){
             lastUpdateTime = tmp
         }else{
             LoadData()
         }
-
+        
         let format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         if let time = format.dateFromString(lastUpdateTime){
@@ -69,11 +53,34 @@ class Model: NSObject, NSXMLParserDelegate {
         currencyString.append(["PLN":"🇮🇩  zloty"	])
         currencyString.append(["SEK":"🇸🇪  krona"	])
         currencyString.append(["EUR":"🇪🇺  EUR"	])
-        
+        currencyString.append(["BGN":" Leva"])
+        currencyString.append(["HUF":" Forint"])
+        currencyString.append(["RON":" Lei"])
+        currencyString.append(["CHF":" Francs"])
+        currencyString.append(["NOK":" Kroner"])
+        currencyString.append(["HRK":" Kuna"])
+        currencyString.append(["RUB":" Rubles"])
+        currencyString.append(["TRY":" Lira"])
+        currencyString.append(["AUD":" A Dollar"])
+        currencyString.append(["BRL":" Reals"])
+        currencyString.append(["CAD":" C Dollar"])
+        currencyString.append(["CNY":" Yuan"])
+        currencyString.append(["HKD":" H Dollar"])
+        currencyString.append(["IDR":" Rupaihs"])
+        currencyString.append(["ILS":" Shekels"])
+        currencyString.append(["INR":" Rupees"])
+        currencyString.append(["KRW":" Won"])
+        currencyString.append(["MXN":" Pesos"])
+        currencyString.append(["MYR":" Ringgits"])
+        currencyString.append(["NZD":" NZ dollar"])
+        currencyString.append(["PHP":" PH pesos"])
+        currencyString.append(["SGD":" S dollar"])
+        currencyString.append(["THB":" Baht"])
+        currencyString.append(["ZAR":" Rand"])
     }
     
     func getCurrencys() -> [Dictionary<String,String>]{
-         return currencyString
+        return currencyString
     }
     
     func calculate(){
@@ -110,13 +117,12 @@ class Model: NSObject, NSXMLParserDelegate {
     
     func LoadData(){
         
-        //let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
-        let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
-
+        let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
+        //let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
+        
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) -> Void in
             if let urlContent = data {
-//                let webContent = NSString(data: urlContent, encoding: NSUTF8StringEncoding)
-//                print(webContent)
+                
                 let testXML = NSXMLParser(data: urlContent)
                 testXML.delegate = self
                 testXML.parse()
@@ -125,48 +131,9 @@ class Model: NSObject, NSXMLParserDelegate {
         }
         task.resume()
     }
-
     
-//    func LoadData(){
-//        
-//        print("load begun")
-//        //let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
-//        let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
-//        //if updateTime().timeIntervalSinceNow <= -86400{
-//            //print(NSDate())
-//            let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) -> Void in
-//                print("task has begun")
-//                if let urlContent = data {
-//                    //let webContent = NSString(data: urlContent, encoding: NSUTF8StringEncoding)
-//                    //print(webContent)
-//                    let testXML = NSXMLParser(data: urlContent)
-//                    testXML.delegate = self
-//                    testXML.parse()
-//                    NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
-//            }
-       //     }
-  //          task.resume()
-        //save.setValue(currencyValue, forKey: "value")
-
-
-            //if no network read from file aswell
-//        }else{
-//            print("load from file")
-//            if let tmp = save.dictionaryForKey("value"){
-//                currencyValue = tmp as! Dictionary<String, Double>
-//                if let time = save.stringForKey("time"){
-//                    print(lastUpdateTime)
-//                    lastUpdateTime = time
-//                    print(lastUpdateTime)
-//                }else{
-//                    print("read error")
-//                }
-//                print(currencyValue)
-//            }else{
-//                print("read error")
-//            }
- //       }
-//    }
+    
+    
     
     private func updateTime() -> NSDate {
         let format = NSDateFormatter()
@@ -186,8 +153,7 @@ class Model: NSObject, NSXMLParserDelegate {
         }
         if let cur = attributeDict["currency"]{
             if let rate = attributeDict["rate"]{
-               // currencyString.append(cur)
-                
+                addFlagsCurrency(cur)
                 currencyValue[cur]=Double(rate)
                 print(currencyValue[cur])
             }

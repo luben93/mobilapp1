@@ -78,6 +78,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     }
     
     @IBAction func Testknapp(sender: AnyObject) {
+        
         myModel.LoadData()
     }
     
