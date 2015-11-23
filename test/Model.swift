@@ -2,8 +2,8 @@
 //  File.swift
 //  test
 //
-//  Created by Jonas Wåhslén on 2015-10-24.
-//  Copyright © 2015 Jonas Wåhslén. All rights reserved.
+//  Created by lucas persson on 2015-11-20.
+//  Copyright © 2015 lucas persson. All rights reserved.
 //
 
 import Foundation
@@ -11,13 +11,13 @@ import Foundation
 
 class Model: NSObject, NSXMLParserDelegate {
     
-    var currencyValue = Dictionary< String,Double>()
+    var currencyValue = [String : Double]()
     var currencyString = [Dictionary<String, String>()]
     var fromCurrency = "SEK"
     var toCurrency = "EUR"
-    var number: -1.0
+    var number = -1.0
     let save = NSUserDefaults.standardUserDefaults()
-    var lastUpdateTime: String
+    var lastUpdateTime:String //= "2014-11-10"
     // var FirstCurrency: Int
     // var SecondCurrency: Int
     
@@ -31,18 +31,37 @@ class Model: NSObject, NSXMLParserDelegate {
         currencyValue[   "CZK"	] =	27.074
         currencyValue[   "DKK"	] =	7.4597
         currencyValue[   "GBP"	] =	0.7195
-        currencyValue[  "PLN"	] =	4.2529
+        currencyValue[   "PLN"	] =	4.2529
         currencyValue[   "RON"	] =	4.4269
         currencyValue[   "SEK"	] =	9.4079
         currencyValue[   "EUR"	] =     1.0
         */
-        
-        updateTime(save.stringForKey("time")!)
-        print(lastUpdateTime)
+        currencyValue["EUR"]=1.0
+        lastUpdateTime = "2015-11-22"
+        super.init()
+
+        if let tmp = save.stringForKey("time"){
+            lastUpdateTime = tmp
+        }else{
+            LoadData()
+        }
+
+        let format = NSDateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        if let time = format.dateFromString(lastUpdateTime){
+            print(lastUpdateTime)
+            if time.timeIntervalSinceNow <= -86400{
+                print("do update")
+                LoadData()
+            }else{
+                print("do read")
+                currencyValue = save.dictionaryForKey("value") as! [String : Double]
+                print(currencyValue)
+            }
+        }else{
+            print("error do date")
+        }
         currencyString.append(["🇺🇸 US Dollar":"USD","🇯🇵 Japanese yen":"JPY","🇵🇭 Czech koruna":"CZK","🇩🇰 Danish krone":"DKK","🇬🇧 Pound sterling":"GBP","🇮🇩 Polish zloty":"PLN","🇸🇪 Swedish krona":"SEK","🇪🇺 Europeriska EUR=":"EUR"])
-        
-        
-        
         
     }
     
@@ -52,6 +71,7 @@ class Model: NSObject, NSXMLParserDelegate {
     }
     
     func calculate(_number: Double){
+        print(currencyValue["SEK"])
         NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
         print("calculating to:\(currencyValue[toCurrency]) from:\(currencyValue[fromCurrency])")
         if let to=currencyValue[toCurrency]{
@@ -59,13 +79,9 @@ class Model: NSObject, NSXMLParserDelegate {
                 print("to and from")
                 number = (_number/from)*to
             }else{
-                print("from nil")
                 calculate()
             }
         }else{
-            //TODO better errorhandling
-            print("to nil")
-            
             calculate()
         }
     }
@@ -74,58 +90,87 @@ class Model: NSObject, NSXMLParserDelegate {
         return number
     }
     
-    
     func LoadData(){
         
-        print("load begun")
-        let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
-        //let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
-        //if lastUpdateTime.timeIntervalSinceNow <= -86400{
-        if updateTime(save.stringForKey("time")){
+        //let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
+        let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
+
         let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) -> Void in
-                print("task has begun")
-                if let urlContent = data {
-                    let webContent = NSString(data: urlContent, encoding: NSUTF8StringEncoding)
-                    print(webContent)
-                    let testXML = NSXMLParser(data: urlContent)
-                    testXML.delegate = self
-                    testXML.parse()
-                    NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
-                }
+            if let urlContent = data {
+//                let webContent = NSString(data: urlContent, encoding: NSUTF8StringEncoding)
+//                print(webContent)
+                let testXML = NSXMLParser(data: urlContent)
+                testXML.delegate = self
+                testXML.parse()
+                NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
             }
-            task.resume()
-            save.setValue(currencyValue, forKey: "value")
+        }
+        task.resume()
+    }
+
+    
+//    func LoadData(){
+//        
+//        print("load begun")
+//        //let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
+//        let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
+//        //if updateTime().timeIntervalSinceNow <= -86400{
+//            //print(NSDate())
+//            let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) -> Void in
+//                print("task has begun")
+//                if let urlContent = data {
+//                    //let webContent = NSString(data: urlContent, encoding: NSUTF8StringEncoding)
+//                    //print(webContent)
+//                    let testXML = NSXMLParser(data: urlContent)
+//                    testXML.delegate = self
+//                    testXML.parse()
+//                    NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
+//            }
+       //     }
+  //          task.resume()
+        //save.setValue(currencyValue, forKey: "value")
+
 
             //if no network read from file aswell
-        }else{
-            print("load from file")
-            if let tmp = save.objectForKey("value"){
-                currencyValue = tmp as! Dictionary<String, Double>
-            }else{
-                print("read error")
-            }
-        }
-    }
+//        }else{
+//            print("load from file")
+//            if let tmp = save.dictionaryForKey("value"){
+//                currencyValue = tmp as! Dictionary<String, Double>
+//                if let time = save.stringForKey("time"){
+//                    print(lastUpdateTime)
+//                    lastUpdateTime = time
+//                    print(lastUpdateTime)
+//                }else{
+//                    print("read error")
+//                }
+//                print(currencyValue)
+//            }else{
+//                print("read error")
+//            }
+ //       }
+//    }
     
-    private func updateTime(intime: String) -> Bool {
+    private func updateTime() -> NSDate {
         let format = NSDateFormatter()
         format.dateFormat = "yyyy-MM-dd"
-        if let out = format.dateFromString(intime){
+        if let out = format.dateFromString(lastUpdateTime){
             return out
         }
-        return NSDate.
-
+        return format.dateFromString("2014-11-14")!
     }
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
         print (attributeDict)
         if let time = attributeDict["time"]{
-            updateTime(time)
-            setValue(time, forKey: "time")
+            lastUpdateTime = time
+            save.setValue(time, forKey: "time")
+            print(time)
         }
         if let cur = attributeDict["currency"]{
             if let rate = attributeDict["rate"]{
+                
                 currencyValue[cur]=Double(rate)
+                print(currencyValue[cur])
             }
         }
     }

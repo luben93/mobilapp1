@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
         super.viewDidLoad()
         self.inputtest.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "NotificationSent", name: myNotificationKey, object: nil)
+        myModel.LoadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,7 +30,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBOutlet weak var inputtest: UITextField!
     @IBOutlet weak var test2: UILabel!
     @IBOutlet weak var Resultat: UILabel!
-      func NotificationSent(){
+    
+    func NotificationSent(){
       print("It works")
     }
     
@@ -45,7 +47,6 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBAction func Testknapp(sender: AnyObject) {
         print("knasig knapp")
         myModel.LoadData()
-        print("knasig knapp avslutat")
     }
     
     
