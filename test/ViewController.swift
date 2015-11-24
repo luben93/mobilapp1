@@ -66,6 +66,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
             case 1: toCurrency.text=res.0;break
             default: break
             }
+            inputtest("")
+
         }else{
             print("error nil selecting pickerviewrow")
         }
