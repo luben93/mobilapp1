@@ -11,7 +11,7 @@ import UIKit
 let myModel = Model()
 let myNotificationKey = "com.exyr.myNotificationKey"
 
-class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate ,UIPickerViewDataSource,UIPickerViewDelegate{
+class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,UIPickerViewDataSource,UIPickerViewDelegate{
     
 
     override func viewDidLoad() {
@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
         self.inputtest.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "NotificationSent", name: myNotificationKey, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.NotificationSent), name: NSNotification.Name(rawValue: myNotificationKey), object: nil)
         myModel.LoadData()
     }
     
@@ -27,15 +27,15 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
         super.didReceiveMemoryWarning()
     }
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerDataSource.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         //print(component)
         if let out = pickerDataSource[row].first{
             switch(component){
@@ -56,9 +56,13 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
     @IBOutlet weak var Resultat: UILabel!
     @IBOutlet weak var fromCurrency: UILabel!
     @IBOutlet weak var toCurrency: UILabel!
-    
     @IBOutlet weak var pickerView: UIPickerView!
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+    
+    
+    /*
+    does not keep inputed value when spinnign picker 2 TODO 
+     */
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if let res = pickerDataSource[row].first{
             myModel.updateCurrency(res.0,toFrom: component)
             switch(component){
@@ -66,7 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
             case 1: toCurrency.text=res.0;break
             default: break
             }
-            inputtest("")
+            inputtest.text = ""
 
         }else{
             print("error nil selecting pickerviewrow")
@@ -83,7 +87,8 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
       print("It works")
     }
     
-    @IBAction func inputtest(sender: AnyObject) {
+    
+    @IBAction func inputtest(_ sender: AnyObject) {
         if let number = Double(inputtest.text!){
             myModel.calculate(number)
             Resultat.text = String(format: "%.3f", myModel.getText())
@@ -92,18 +97,18 @@ class ViewController: UIViewController, UITextFieldDelegate, NSXMLParserDelegate
         }
     }
     
-    @IBAction func Testknapp(sender: AnyObject) {
+    @IBAction func Testknapp(_ sender: AnyObject) {
         
         myModel.LoadData()
     }
     
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }

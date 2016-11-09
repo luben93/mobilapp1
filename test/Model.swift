@@ -9,14 +9,14 @@
 import Foundation
 
 
-class Model: NSObject, NSXMLParserDelegate {
+class Model: NSObject, XMLParserDelegate {
     
     var currencyValue = [String : Double]()
     var currencyString = [Dictionary<String,String>]()
     var fromCurrency = "USD"
     var toCurrency = "USD"
     var number = -1.0
-    let save = NSUserDefaults.standardUserDefaults()
+    let save = UserDefaults.standard
     var lastUpdateTime:String
     
     override init(){
@@ -24,22 +24,22 @@ class Model: NSObject, NSXMLParserDelegate {
         lastUpdateTime = "2015-11-22"
         super.init()
         
-        if let tmp = save.stringForKey("time"){
+        if let tmp = save.string(forKey: "time"){
             lastUpdateTime = tmp
         }else{
             LoadData()
         }
         
-        let format = NSDateFormatter()
+        let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
-        if let time = format.dateFromString(lastUpdateTime){
+        if let time = format.date(from: lastUpdateTime){
             print(lastUpdateTime)
             if time.timeIntervalSinceNow <= -86400{
                 print("do update")
                 LoadData()
             }else{
                 print("do read")
-                currencyValue = save.dictionaryForKey("value") as! [String : Double]
+                currencyValue = save.dictionary(forKey: "value") as! [String : Double]
                 print(currencyValue)
             }
         }else{
@@ -88,7 +88,7 @@ class Model: NSObject, NSXMLParserDelegate {
         print("error calculate")
     }
     
-    func updateCurrency(currency: String,toFrom:Int){
+    func updateCurrency(_ currency: String,toFrom:Int){
         if toFrom == 0 {
             fromCurrency = currency
         }else{
@@ -96,9 +96,9 @@ class Model: NSObject, NSXMLParserDelegate {
         }
     }
     
-    func calculate(_number: Double){
+    func calculate(_ _number: Double){
         print(currencyValue["SEK"])
-        NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
         print("calculating to:\(currencyValue[toCurrency]) from:\(currencyValue[fromCurrency])")
         if let to=currencyValue[toCurrency]{
             if let from = currencyValue[fromCurrency]{
@@ -118,34 +118,34 @@ class Model: NSObject, NSXMLParserDelegate {
     
     func LoadData(){
         
-        let url = NSURL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
+        let url = URL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
         //let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) -> Void in
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let urlContent = data {
                 
-                let testXML = NSXMLParser(data: urlContent)
+                let testXML = XMLParser(data: urlContent)
                 testXML.delegate = self
                 testXML.parse()
-                NSNotificationCenter.defaultCenter().postNotificationName(myNotificationKey, object: self)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
             }
-        }
+        }) 
         task.resume()
     }
     
     
     
     
-    private func updateTime() -> NSDate {
-        let format = NSDateFormatter()
+    fileprivate func updateTime() -> Date {
+        let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
-        if let out = format.dateFromString(lastUpdateTime){
+        if let out = format.date(from: lastUpdateTime){
             return out
         }
-        return format.dateFromString("2014-11-14")!
+        return format.date(from: "2014-11-14")!
     }
     
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
         print (attributeDict)
         if let time = attributeDict["time"]{
             lastUpdateTime = time
@@ -161,7 +161,7 @@ class Model: NSObject, NSXMLParserDelegate {
         }
     }
     
-    func addFlagsCurrency(str:String){
+    func addFlagsCurrency(_ str:String){
         for currency in currencyString{
             if let _ = currency[str]{
                 return
