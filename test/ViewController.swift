@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         self.pickerView.delegate = self
         self.inputtest.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.NotificationSent), name: NSNotification.Name(rawValue: myNotificationKey), object: nil)
-        myModel.LoadData()
+        updatedTimeLabel()
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerDataSource.count
     }
+    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         //print(component)
@@ -57,7 +58,9 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     @IBOutlet weak var fromCurrency: UILabel!
     @IBOutlet weak var toCurrency: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var LastUpdatedLabel: UILabel!
     
+    // TODO switchero button
     
     /*
     does not keep inputed value when spinnign picker 2 TODO 
@@ -98,8 +101,12 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     }
     
     @IBAction func Testknapp(_ sender: AnyObject) {
-        
         myModel.LoadData()
+        updatedTimeLabel()
+    }
+    
+    private func updatedTimeLabel(){
+        LastUpdatedLabel.text = "Updaterat: \(myModel.lastUpdateTime)"
     }
     
     

@@ -17,11 +17,11 @@ class Model: NSObject, XMLParserDelegate {
     var toCurrency = "USD"
     var number = -1.0
     let save = UserDefaults.standard
-    var lastUpdateTime:String
+    var lastUpdateTime:String = "2015-11-22"
+
     
     override init(){
         currencyValue["EUR"]=1.0
-        lastUpdateTime = "2015-11-22"
         super.init()
         
         if let tmp = save.string(forKey: "time"){
@@ -39,45 +39,49 @@ class Model: NSObject, XMLParserDelegate {
                 LoadData()
             }else{
                 print("do read")
-                currencyValue = save.dictionary(forKey: "value") as! [String : Double]
-                print(currencyValue)
+                if let currencyValue = save.dictionary(forKey: "value") as? [String : Double]{
+                    print(currencyValue)
+                }else{
+                    print("noting to read, doing update")
+                    LoadData()
+                }
             }
         }else{
             print("error do date")
         }
-        currencyString.append(["USD":"🇺🇸 Dollar"	])
+        currencyString.append(["USD":"🇺🇸 Dollar"])
         currencyString.append(["JPY":"🇯🇵 yen"	])
-        currencyString.append(["CZK":"🇵🇭 koruna"	])
+        currencyString.append(["CZK":"🇵🇭 koruna"])
         currencyString.append(["DKK":"🇩🇰 krone"	])
-        currencyString.append(["GBP":"🇬🇧 sterling"	])
+        currencyString.append(["GBP":"🇬🇧 sterling"])
         currencyString.append(["PLN":"🇮🇩 zloty"	])
         currencyString.append(["SEK":"🇸🇪 krona"	])
         currencyString.append(["EUR":"🇪🇺 EUR"	])
         currencyString.append(["NZD":"🇳🇿 dollar"])
-        currencyString.append(["PHP":"🇵🇭 pesos"])
+        currencyString.append(["PHP":"🇵🇭 pesos" ])
         currencyString.append(["SGD":"🇸🇬 dollar"])
         currencyString.append(["AUD":"🇦🇺 Dollar"])
         currencyString.append(["CAD":"🇨🇦 Dollar"])
         currencyString.append(["HKD":"🇭🇰 Dollar"])
 
-        currencyString.append(["BGN":" Leva"])
-        currencyString.append(["HUF":" Forint"])
-        currencyString.append(["RON":" Lei"])
-        currencyString.append(["CHF":" Francs"])
-        currencyString.append(["NOK":" Kroner"])
-        currencyString.append(["HRK":" Kuna"])
-        currencyString.append(["RUB":" Rubles"])
-        currencyString.append(["TRY":" Lira"])
-        currencyString.append(["BRL":" Reals"])
-        currencyString.append(["CNY":" Yuan"])
-        currencyString.append(["IDR":" Rupaihs"])
-        currencyString.append(["ILS":" Shekels"])
-        currencyString.append(["INR":" Rupees"])
-        currencyString.append(["KRW":" Won"])
-        currencyString.append(["MXN":" Pesos"])
+        currencyString.append(["BGN":" Leva"    ])
+        currencyString.append(["HUF":" Forint"  ])
+        currencyString.append(["RON":" Lei"     ])
+        currencyString.append(["CHF":" Francs"  ])
+        currencyString.append(["NOK":" Kroner"  ])
+        currencyString.append(["HRK":" Kuna"    ])
+        currencyString.append(["RUB":" Rubles"  ])
+        currencyString.append(["TRY":" Lira"    ])
+        currencyString.append(["BRL":" Reals"   ])
+        currencyString.append(["CNY":" Yuan"    ])
+        currencyString.append(["IDR":" Rupaihs" ])
+        currencyString.append(["ILS":" Shekels" ])
+        currencyString.append(["INR":" Rupees"  ])
+        currencyString.append(["KRW":" Won"     ])
+        currencyString.append(["MXN":" Pesos"   ])
         currencyString.append(["MYR":" Ringgits"])
-        currencyString.append(["THB":" Baht"])
-        currencyString.append(["ZAR":" Rand"])
+        currencyString.append(["THB":" Baht"    ])
+        currencyString.append(["ZAR":" Rand"    ])
     }
     
     func getCurrencys() -> [Dictionary<String,String>]{
@@ -119,7 +123,7 @@ class Model: NSObject, XMLParserDelegate {
     func LoadData(){
         
         let url = URL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
-        //let url = NSURL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
+        //let url = URL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
         
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let urlContent = data {
@@ -134,17 +138,6 @@ class Model: NSObject, XMLParserDelegate {
     }
     
     
-    
-    
-    fileprivate func updateTime() -> Date {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy-MM-dd"
-        if let out = format.date(from: lastUpdateTime){
-            return out
-        }
-        return format.date(from: "2014-11-14")!
-    }
-    
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
         print (attributeDict)
         if let time = attributeDict["time"]{
@@ -156,7 +149,7 @@ class Model: NSObject, XMLParserDelegate {
             if let rate = attributeDict["rate"]{
                 addFlagsCurrency(cur)
                 currencyValue[cur]=Double(rate)
-                print(currencyValue[cur])
+                print(currencyValue[cur] ?? "no number")
             }
         }
     }
