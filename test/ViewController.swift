@@ -13,18 +13,52 @@ let myNotificationKey = "com.exyr.myNotificationKey"
 
 class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,UIPickerViewDataSource,UIPickerViewDelegate{
     
+    @IBOutlet weak var test: UILabel!
+    @IBOutlet weak var inputtest: UITextField!
+    @IBOutlet weak var test2: UILabel!
+    @IBOutlet weak var Resultat: UILabel!
+    @IBOutlet weak var fromCurrency: UILabel!
+    @IBOutlet weak var toCurrency: UILabel!
+    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var lastUpdatedLabel: UILabel!
+    
+    var pickerDataSource = myModel.getCurrencys()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
         self.inputtest.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.NotificationSent), name: NSNotification.Name(rawValue: myNotificationKey), object: nil)
+      //  NotificationCenter.default.addObserver(self, selector: #selector(ViewController.NotificationSent), name: NSNotification.Name(rawValue: myNotificationKey), object: nil)
         updatedTimeLabel()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    @IBAction func switchero() {
+        let oldFrom = myModel.fromCurrency
+        let oldTo = myModel.toCurrency
+        let oldResult = Resultat.text
+
+        inputtest.text = oldResult
+        changeCurrency(res: oldFrom, component: 1)
+        changeCurrency(res: oldTo, component: 0)
+        
+    }
+    
+    @IBAction func inputtest(_ sender: AnyObject) {
+        calculateResult()
+    }
+    
+    @IBAction func Testknapp(_ sender: AnyObject) {
+        myModel.LoadData()
+        updatedTimeLabel()
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -35,9 +69,7 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         return pickerDataSource.count
     }
     
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        //print(component)
         if let out = pickerDataSource[row].first{
             switch(component){
             case 0:return out.1
@@ -45,79 +77,57 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
             default: return "error"
             }
         }else{
-                return "error"
+            return "error"
         }
-        
-    }
-    
-    
-    @IBOutlet weak var test: UILabel!
-    @IBOutlet weak var inputtest: UITextField!
-    @IBOutlet weak var test2: UILabel!
-    @IBOutlet weak var Resultat: UILabel!
-    @IBOutlet weak var fromCurrency: UILabel!
-    @IBOutlet weak var toCurrency: UILabel!
-    @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var LastUpdatedLabel: UILabel!
-    
-    // TODO switchero button
-    
-    /*
-    does not keep inputed value when spinnign picker 2 TODO 
-     */
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        if let res = pickerDataSource[row].first{
-            myModel.updateCurrency(res.0,toFrom: component)
-            switch(component){
-            case 0: fromCurrency.text=res.0;break
-            case 1: toCurrency.text=res.0;break
-            default: break
-            }
-            inputtest.text = ""
-
-        }else{
-            print("error nil selecting pickerviewrow")
-        }
-        
-    }
-    
-    
-    
-    var pickerDataSource = myModel.getCurrencys()
-    
-    
-    func NotificationSent(){
-      print("It works")
-    }
-    
-    
-    @IBAction func inputtest(_ sender: AnyObject) {
-        if let number = Double(inputtest.text!){
-            myModel.calculate(number)
-            Resultat.text = String(format: "%.3f", myModel.getText())
-        }else{
-            Resultat.text = "gick inte"
-        }
-    }
-    
-    @IBAction func Testknapp(_ sender: AnyObject) {
-        myModel.LoadData()
-        updatedTimeLabel()
-    }
-    
-    private func updatedTimeLabel(){
-        LastUpdatedLabel.text = "Updaterat: \(myModel.lastUpdateTime)"
-    }
-    
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+
+    // TODO  does not save yet
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+
+        if let res = pickerDataSource[row].first{
+            changeCurrency(res: res.0,component: component)
+        }else{
+            print("error nil selecting pickerviewrow")
+        }
+        
+    }
+    /*
+    func NotificationSent(){
+      print("It works")
+    }*/
+    
+    private func changeCurrency( res: String,component:Int ){
+            myModel.updateCurrency(res,toFrom: component)
+            switch(component){
+            case 0: fromCurrency.text=res;break
+            case 1: toCurrency.text=res;break
+            default: break
+            }
+            calculateResult()
+        
+    }
+    
+    private func calculateResult() {
+        if let number = Double(inputtest.text!){
+            if let res = myModel.calculate(number) {
+                Resultat.text = String(format: "%.3f",res)
+                return 
+            }
+        }
+        Resultat.text = "gick inte"
+        inputtest.text = "0.0"
+    }
+    
+    private func updatedTimeLabel(){
+        lastUpdatedLabel.text = "Updaterat: \(myModel.lastUpdateTime)"
+    }
+    
+    
+    
 }
 

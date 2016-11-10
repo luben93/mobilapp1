@@ -12,16 +12,47 @@ import Foundation
 class Model: NSObject, XMLParserDelegate {
     
     var currencyValue = [String : Double]()
-    var currencyString = [Dictionary<String,String>]()
+    var currencyString = [ ["USD":"🇺🇸 Dollar"],
+                           ["JPY":"🇯🇵 yen"	],
+                           ["CZK":"🇵🇭 koruna"],
+                           ["DKK":"🇩🇰 krone"	],
+                           ["GBP":"🇬🇧 sterling"],
+                           ["PLN":"🇮🇩 zloty"	],
+                           ["SEK":"🇸🇪 krona"	],
+                           ["EUR":"🇪🇺 EUR"	],
+                           ["NZD":"🇳🇿 dollar"],
+                           ["PHP":"🇵🇭 pesos" ],
+                           ["SGD":"🇸🇬 dollar"],
+                           ["AUD":"🇦🇺 Dollar"],
+                           ["CAD":"🇨🇦 Dollar"],
+                           ["HKD":"🇭🇰 Dollar"],
+                           ["BGN":" Leva"    ],
+                           ["HUF":" Forint"  ],
+                           ["RON":" Lei"     ],
+                           ["CHF":" Francs"  ],
+                           ["NOK":" Kroner"  ],
+                           ["HRK":" Kuna"    ],
+                           ["RUB":" Rubles"  ],
+                           ["TRY":" Lira"    ],
+                           ["BRL":" Reals"   ],
+                           ["CNY":" Yuan"    ],
+                           ["IDR":" Rupaihs" ],
+                           ["ILS":" Shekels" ],
+                           ["INR":" Rupees"  ],
+                           ["KRW":" Won"     ],
+                           ["MXN":" Pesos"   ],
+                           ["MYR":" Ringgits"],
+                           ["THB":" Baht"    ],
+                           ["ZAR":" Rand"    ] ]
     var fromCurrency = "USD"
     var toCurrency = "USD"
-    var number = -1.0
+   // var number = -1.0
     let save = UserDefaults.standard
     var lastUpdateTime:String = "2015-11-22"
 
     
     override init(){
-        currencyValue["EUR"]=1.0
+        //currencyValue["EUR"]=1.0
         super.init()
         
         if let tmp = save.string(forKey: "time"){
@@ -39,8 +70,9 @@ class Model: NSObject, XMLParserDelegate {
                 LoadData()
             }else{
                 print("do read")
-                if let currencyValue = save.dictionary(forKey: "value") as? [String : Double]{
-                    print(currencyValue)
+                if let curVal = save.dictionary(forKey: "value") as? [String : Double]{
+                    print(curVal)
+                    currencyValue = curVal
                 }else{
                     print("noting to read, doing update")
                     LoadData()
@@ -49,47 +81,11 @@ class Model: NSObject, XMLParserDelegate {
         }else{
             print("error do date")
         }
-        currencyString.append(["USD":"🇺🇸 Dollar"])
-        currencyString.append(["JPY":"🇯🇵 yen"	])
-        currencyString.append(["CZK":"🇵🇭 koruna"])
-        currencyString.append(["DKK":"🇩🇰 krone"	])
-        currencyString.append(["GBP":"🇬🇧 sterling"])
-        currencyString.append(["PLN":"🇮🇩 zloty"	])
-        currencyString.append(["SEK":"🇸🇪 krona"	])
-        currencyString.append(["EUR":"🇪🇺 EUR"	])
-        currencyString.append(["NZD":"🇳🇿 dollar"])
-        currencyString.append(["PHP":"🇵🇭 pesos" ])
-        currencyString.append(["SGD":"🇸🇬 dollar"])
-        currencyString.append(["AUD":"🇦🇺 Dollar"])
-        currencyString.append(["CAD":"🇨🇦 Dollar"])
-        currencyString.append(["HKD":"🇭🇰 Dollar"])
-
-        currencyString.append(["BGN":" Leva"    ])
-        currencyString.append(["HUF":" Forint"  ])
-        currencyString.append(["RON":" Lei"     ])
-        currencyString.append(["CHF":" Francs"  ])
-        currencyString.append(["NOK":" Kroner"  ])
-        currencyString.append(["HRK":" Kuna"    ])
-        currencyString.append(["RUB":" Rubles"  ])
-        currencyString.append(["TRY":" Lira"    ])
-        currencyString.append(["BRL":" Reals"   ])
-        currencyString.append(["CNY":" Yuan"    ])
-        currencyString.append(["IDR":" Rupaihs" ])
-        currencyString.append(["ILS":" Shekels" ])
-        currencyString.append(["INR":" Rupees"  ])
-        currencyString.append(["KRW":" Won"     ])
-        currencyString.append(["MXN":" Pesos"   ])
-        currencyString.append(["MYR":" Ringgits"])
-        currencyString.append(["THB":" Baht"    ])
-        currencyString.append(["ZAR":" Rand"    ])
-    }
+        
+ }
     
     func getCurrencys() -> [Dictionary<String,String>]{
         return currencyString
-    }
-    
-    func calculate(){
-        print("error calculate")
     }
     
     func updateCurrency(_ currency: String,toFrom:Int){
@@ -100,28 +96,17 @@ class Model: NSObject, XMLParserDelegate {
         }
     }
     
-    func calculate(_ _number: Double){
-        print(currencyValue["SEK"])
-        NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
-        print("calculating to:\(currencyValue[toCurrency]) from:\(currencyValue[fromCurrency])")
+    func calculate(_ _number: Double) -> Double?{
+        //NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)        
         if let to=currencyValue[toCurrency]{
             if let from = currencyValue[fromCurrency]{
-                print("to and from")
-                number = (_number/from)*to
-            }else{
-                calculate()
+                return (_number/from)*to
             }
-        }else{
-            calculate()
         }
-    }
-    
-    func getText()->Double{
-       return number
+        return nil
     }
     
     func LoadData(){
-        
         let url = URL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
         //let url = URL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
         
@@ -132,6 +117,8 @@ class Model: NSObject, XMLParserDelegate {
                 testXML.delegate = self
                 testXML.parse()
                 NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
+                //do save
+                self.save.set( self.currencyValue, forKey: "value")
             }
         }) 
         task.resume()
@@ -139,7 +126,6 @@ class Model: NSObject, XMLParserDelegate {
     
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
-        print (attributeDict)
         if let time = attributeDict["time"]{
             lastUpdateTime = time
             save.setValue(time, forKey: "time")
@@ -149,7 +135,6 @@ class Model: NSObject, XMLParserDelegate {
             if let rate = attributeDict["rate"]{
                 addFlagsCurrency(cur)
                 currencyValue[cur]=Double(rate)
-                print(currencyValue[cur] ?? "no number")
             }
         }
     }
