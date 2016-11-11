@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     
     let errorResultOutput = "gick inte"
     let updateOutput = "Updaterat:"
+    //TODO offline switch, dont flip input/result
     var pickerDataSource = myModel.getCurrencys()
     
     override func viewDidLoad() {
