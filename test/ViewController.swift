@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     @IBOutlet weak var toCurrency: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var lastUpdatedLabel: UILabel!
-    
+    //TODO offline switch, dont flip input/result
     var pickerDataSource = myModel.getCurrencys()
     
     override func viewDidLoad() {
