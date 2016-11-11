@@ -45,7 +45,7 @@ class Model: NSObject, XMLParserDelegate {
                            ["ZAR":" Rand"    ] ]
     var lastUpdateTime = "2015-11-22"
     var currencyValue = [String : Double]()
-    let offline = false
+    var offline = false
     var inputed:Double {
         get {
             return save.double(forKey: "number") 
@@ -143,7 +143,6 @@ class Model: NSObject, XMLParserDelegate {
                 testXML.delegate = self
                 testXML.parse()
                 // NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
-                //TODO do save
                 self.save.set(self.currencyValue, forKey: "value")
                 self.save.synchronize()
                 print("saved")

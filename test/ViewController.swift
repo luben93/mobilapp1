@@ -24,7 +24,6 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     
     let errorResultOutput = "gick inte"
     let updateOutput = "Updaterat:"
-    //TODO offline switch, dont flip input/result
     var pickerDataSource = myModel.getCurrencys()
     
     override func viewDidLoad() {
@@ -46,13 +45,17 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         self.view.endEditing(true)
     }
     
+    @IBAction func offlineSwitch(_ sender: UISwitch) {
+        myModel.offline = !sender.isOn
+    }
+    
     @IBAction func switchero() {
         let oldFrom = myModel.fromCurrency
         let oldTo = myModel.toCurrency
         var oldResult = Resultat.text
         if oldResult == errorResultOutput{ oldResult = "\(0.0)" }
         
-        inputtest.text = oldResult
+        //inputtest.text = oldResult
         updatePickerView(res: oldFrom, component: 1)
         updatePickerView(res: oldTo, component: 0)
         

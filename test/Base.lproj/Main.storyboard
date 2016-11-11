@@ -113,21 +113,29 @@
                                             <action selector="Testknapp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CSr-si-yD2"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updaterat: 20XX-XX-XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0aj-Br-TAO">
-                                        <rect key="frame" x="103" y="18" width="204" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updaterat: 20XX-XX-XX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0aj-Br-TAO">
+                                        <rect key="frame" x="103" y="18" width="185" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8NU-pv-ak5">
+                                        <rect key="frame" x="296" y="14" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="offlineSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="hH2-Vo-FU9"/>
+                                        </connections>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.79174977840000005" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="0aj-Br-TAO" firstAttribute="centerY" secondItem="PfF-CR-hBw" secondAttribute="centerY" id="3Wh-uY-YQT"/>
                                     <constraint firstItem="PfF-CR-hBw" firstAttribute="top" secondItem="H8W-dn-a7G" secondAttribute="top" constant="16" id="JaR-KD-2Im"/>
-                                    <constraint firstItem="0aj-Br-TAO" firstAttribute="leading" secondItem="PfF-CR-hBw" secondAttribute="trailing" constant="8" symbolic="YES" id="Vyi-Uy-RLC"/>
-                                    <constraint firstItem="0aj-Br-TAO" firstAttribute="top" secondItem="H8W-dn-a7G" secondAttribute="top" constant="18" id="WVd-Ac-8bB"/>
-                                    <constraint firstAttribute="trailing" secondItem="0aj-Br-TAO" secondAttribute="trailing" constant="68" id="Zf5-8h-H8Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="8NU-pv-ak5" secondAttribute="trailing" constant="30" id="M3B-hz-df9"/>
+                                    <constraint firstItem="8NU-pv-ak5" firstAttribute="top" secondItem="H8W-dn-a7G" secondAttribute="top" constant="14" id="Toc-cn-vnq"/>
+                                    <constraint firstItem="0aj-Br-TAO" firstAttribute="baseline" secondItem="PfF-CR-hBw" secondAttribute="baseline" id="Vsx-JI-gQQ"/>
+                                    <constraint firstItem="8NU-pv-ak5" firstAttribute="leading" secondItem="0aj-Br-TAO" secondAttribute="trailing" constant="8" symbolic="YES" id="Z5q-h0-rUs"/>
                                     <constraint firstAttribute="bottom" secondItem="PfF-CR-hBw" secondAttribute="bottom" constant="20" id="biT-tI-UCH"/>
+                                    <constraint firstItem="0aj-Br-TAO" firstAttribute="leading" secondItem="PfF-CR-hBw" secondAttribute="trailing" constant="8" symbolic="YES" id="jNU-nz-j68"/>
+                                    <constraint firstItem="8NU-pv-ak5" firstAttribute="centerY" secondItem="H8W-dn-a7G" secondAttribute="centerY" id="rsd-1J-teN"/>
                                     <constraint firstItem="PfF-CR-hBw" firstAttribute="leading" secondItem="H8W-dn-a7G" secondAttribute="leadingMargin" id="yUu-WP-ofr"/>
                                 </constraints>
                             </view>
