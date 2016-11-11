@@ -11,15 +11,14 @@ import Foundation
 
 class Model: NSObject, XMLParserDelegate {
     
-    var currencyValue = [String : Double]()
     var currencyString = [ ["USD":"🇺🇸 Dollar"],
-                           ["JPY":"🇯🇵 yen"	],
+                           ["JPY":"🇯🇵 yen"   ],
                            ["CZK":"🇵🇭 koruna"],
-                           ["DKK":"🇩🇰 krone"	],
+                           ["DKK":"🇩🇰 krone" ],
                            ["GBP":"🇬🇧 sterling"],
-                           ["PLN":"🇮🇩 zloty"	],
-                           ["SEK":"🇸🇪 krona"	],
-                           ["EUR":"🇪🇺 EUR"	],
+                           ["PLN":"🇮🇩 zloty" ],
+                           ["SEK":"🇸🇪 krona" ],
+                           ["EUR":"🇪🇺 EUR"	 ],
                            ["NZD":"🇳🇿 dollar"],
                            ["PHP":"🇵🇭 pesos" ],
                            ["SGD":"🇸🇬 dollar"],
@@ -44,24 +43,62 @@ class Model: NSObject, XMLParserDelegate {
                            ["MYR":" Ringgits"],
                            ["THB":" Baht"    ],
                            ["ZAR":" Rand"    ] ]
-    var fromCurrency = "USD"
-    var toCurrency = "USD"
-   // var number = -1.0
-    let save = UserDefaults.standard
     var lastUpdateTime = "2015-11-22"
-
+    var currencyValue = [String : Double]()
+    let offline = false
+    var inputed:Double {
+        get {
+            return save.double(forKey: "number") 
+        }
+        set{
+            save.set(newValue,forKey: "number")
+            save.synchronize()
+        }
+    }
+    var save = UserDefaults.standard{
+        didSet{
+            print("saveing stuff")
+            save.synchronize()
+        }
+    }
+    
+    var fromCurrency:String {
+        get{
+            return save.string(forKey: "fromCurrency") ?? "USD"
+        }
+        set{
+            save.set(newValue,forKey: "fromCurrency")
+            save.synchronize()
+        }
+    }
+    var toCurrency:String {
+        get{
+            return save.string(forKey: "toCurrency") ?? "USD"
+        }
+        set{
+            save.set(newValue,forKey: "toCurrency")
+            save.synchronize()
+        }
+    }
+    
+    
+    
     
     override init(){
         currencyValue["EUR"]=1.0
         super.init()
-        print("saves dict: \(save.dictionary(forKey: "value"))")
-        print("saves time: \(save.string(forKey: "time"))")
         
         if let tmp = save.string(forKey: "time"){
             print("useing saved time")
             lastUpdateTime = tmp
         }else{
             LoadData()
+        }
+        
+        if let curVal = save.dictionary(forKey: "value") as? [String : Double]{
+            print(curVal)
+            currencyValue = curVal
+            print("read above vals")
         }
         
         let format = DateFormatter()
@@ -71,47 +108,33 @@ class Model: NSObject, XMLParserDelegate {
             if time.timeIntervalSinceNow <= -86400{
                 print("do update")
                 LoadData()
-            }else{
-                print("do read")
-                if let curVal = save.dictionary(forKey: "value") as? [String : Double]{
-                    print(curVal)
-                    currencyValue = curVal
-                    print("read above vals")
-                }else{
-                    print("noting to read, doing update")
-                    LoadData()
-                }
             }
         }else{
             print("error do date")
         }
-        
- }
+    }
     
     func getCurrencys() -> [Dictionary<String,String>]{
         return currencyString
     }
     
-    func updateCurrency(_ currency: String,toFrom:Int){
-        if toFrom == 0 {
-            fromCurrency = currency
-        }else{
-            toCurrency = currency
-        }
-    }
-    
-    func calculate(_ _number: Double) -> Double?{
+    func calculate(_ number: Double) -> Double?{
+        inputed = number
         if let to=currencyValue[toCurrency]{
             if let from = currencyValue[fromCurrency]{
-                return (_number/from)*to
+                return (number/from)*to
             }
         }
         return nil
     }
     
     func LoadData(){
-        let url = URL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
-        //let url = URL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
+        if offline {
+            print("pretending to be offline")
+            return
+        }
+        //let url = URL(string: "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")!
+        let url = URL(string: "http://maceo.sth.kth.se/Home/eurofxref")!
         
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let urlContent = data {
@@ -119,13 +142,12 @@ class Model: NSObject, XMLParserDelegate {
                 let testXML = XMLParser(data: urlContent)
                 testXML.delegate = self
                 testXML.parse()
-               // NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
-                //do save
+                // NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
+                //TODO do save
                 self.save.set(self.currencyValue, forKey: "value")
-                //self.save.set(self.lastUpdateTime, forKey: "time")
                 self.save.synchronize()
                 print("saved")
-
+                
             }
         })
         task.resume()

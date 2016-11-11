@@ -22,6 +22,8 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var lastUpdatedLabel: UILabel!
     
+    let errorResultOutput = "gick inte"
+    let updateOutput = "Updaterat:"
     var pickerDataSource = myModel.getCurrencys()
     
     override func viewDidLoad() {
@@ -30,6 +32,9 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         self.pickerView.delegate = self
         self.inputtest.delegate = self
         updatedTimeLabel()
+        inputtest.text = "\(myModel.inputed)"
+        updatePickerView(res: myModel.fromCurrency, component: 0)
+        updatePickerView(res: myModel.toCurrency , component: 1)
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,21 +48,15 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     @IBAction func switchero() {
         let oldFrom = myModel.fromCurrency
         let oldTo = myModel.toCurrency
-        let oldResult = Resultat.text
+        var oldResult = Resultat.text
+        if oldResult == errorResultOutput{ oldResult = "\(0.0)" }
         
         inputtest.text = oldResult
-        changeCurrency(res: oldFrom, component: 1)
-        changeCurrency(res: oldTo, component: 0)
-        // TODO update picker view
-        pickerView.selectRow(  pickerDataSource.index(where: { ($0[oldFrom] != nil)})! , inComponent: 1, animated: false)
-        pickerView.selectRow( pickerDataSource.index(where: { ($0[oldTo] != nil)})! , inComponent: 0, animated: false)
+        updatePickerView(res: oldFrom, component: 1)
+        updatePickerView(res: oldTo, component: 0)
         
     }
-    /*
-    @IBAction func inputtest(_ sender: AnyObject) {
-        calculateResult()
-    }
-    */
+    
     @IBAction func inputUpdated() {
         calculateResult()
     }
@@ -92,25 +91,21 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        
         if let res = pickerDataSource[row].first{
             changeCurrency(res: res.0,component: component)
         }else{
             print("error nil selecting pickerviewrow")
         }
-        
     }
 
     
     private func changeCurrency( res: String,component:Int ){
-        myModel.updateCurrency(res,toFrom: component)
         switch(component){
-        case 0: fromCurrency.text=res;break
-        case 1: toCurrency.text=res;break
+        case 0: fromCurrency.text=res;myModel.fromCurrency = res
+        case 1: toCurrency.text=res;myModel.toCurrency = res
         default: break
         }
         calculateResult()
-        
     }
     
     private func calculateResult() {
@@ -121,17 +116,19 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
                     return
                 }
             }
-            //inputtest.text = dotted
+            inputtest.text = dotted
         }
-        Resultat.text = "gick inte"
-        //inputtest.text = "0.0"
+        Resultat.text = errorResultOutput
+    }
+    
+    private func updatePickerView(res: String, component: Int){
+        changeCurrency(res: res, component: component)
+        pickerView.selectRow( pickerDataSource.index(where: { ($0[res] != nil)})! , inComponent: component, animated: false)
     }
     
     private func updatedTimeLabel(){
-        lastUpdatedLabel.text = "Updaterat: \(myModel.lastUpdateTime)"
+        lastUpdatedLabel.text = "\(updateOutput) \(myModel.lastUpdateTime)"
     }
-    
-    
     
 }
 
