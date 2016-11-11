@@ -23,13 +23,12 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
     @IBOutlet weak var lastUpdatedLabel: UILabel!
     
     var pickerDataSource = myModel.getCurrencys()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
         self.inputtest.delegate = self
-      //  NotificationCenter.default.addObserver(self, selector: #selector(ViewController.NotificationSent), name: NSNotification.Name(rawValue: myNotificationKey), object: nil)
         updatedTimeLabel()
     }
     
@@ -45,22 +44,28 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         let oldFrom = myModel.fromCurrency
         let oldTo = myModel.toCurrency
         let oldResult = Resultat.text
-
+        
         inputtest.text = oldResult
         changeCurrency(res: oldFrom, component: 1)
         changeCurrency(res: oldTo, component: 0)
+        // TODO update picker view
+        pickerView.selectRow(  pickerDataSource.index(where: { ($0[oldFrom] != nil)})! , inComponent: 1, animated: false)
+        pickerView.selectRow( pickerDataSource.index(where: { ($0[oldTo] != nil)})! , inComponent: 0, animated: false)
         
     }
-    
+    /*
     @IBAction func inputtest(_ sender: AnyObject) {
         calculateResult()
     }
-    
+    */
+    @IBAction func inputUpdated() {
+        calculateResult()
+    }
     @IBAction func Testknapp(_ sender: AnyObject) {
         myModel.LoadData()
         updatedTimeLabel()
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -85,10 +90,9 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         textField.resignFirstResponder()
         return true
     }
-
-    // TODO  does not save yet
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-
+        
         if let res = pickerDataSource[row].first{
             changeCurrency(res: res.0,component: component)
         }else{
@@ -96,31 +100,31 @@ class ViewController: UIViewController, UITextFieldDelegate, XMLParserDelegate ,
         }
         
     }
-    /*
-    func NotificationSent(){
-      print("It works")
-    }*/
+
     
     private func changeCurrency( res: String,component:Int ){
-            myModel.updateCurrency(res,toFrom: component)
-            switch(component){
-            case 0: fromCurrency.text=res;break
-            case 1: toCurrency.text=res;break
-            default: break
-            }
-            calculateResult()
+        myModel.updateCurrency(res,toFrom: component)
+        switch(component){
+        case 0: fromCurrency.text=res;break
+        case 1: toCurrency.text=res;break
+        default: break
+        }
+        calculateResult()
         
     }
     
     private func calculateResult() {
-        if let number = Double(inputtest.text!){
-            if let res = myModel.calculate(number) {
-                Resultat.text = String(format: "%.3f",res)
-                return 
+        if let dotted = inputtest.text?.replacingOccurrences(of: ",", with: "."){
+            if let number = Double(dotted){
+                if let res = myModel.calculate(number) {
+                    Resultat.text = String(format: "%.3f",res)
+                    return
+                }
             }
+            //inputtest.text = dotted
         }
         Resultat.text = "gick inte"
-        inputtest.text = "0.0"
+        //inputtest.text = "0.0"
     }
     
     private func updatedTimeLabel(){

@@ -48,14 +48,17 @@ class Model: NSObject, XMLParserDelegate {
     var toCurrency = "USD"
    // var number = -1.0
     let save = UserDefaults.standard
-    var lastUpdateTime:String = "2015-11-22"
+    var lastUpdateTime = "2015-11-22"
 
     
     override init(){
-        //currencyValue["EUR"]=1.0
+        currencyValue["EUR"]=1.0
         super.init()
+        print("saves dict: \(save.dictionary(forKey: "value"))")
+        print("saves time: \(save.string(forKey: "time"))")
         
         if let tmp = save.string(forKey: "time"){
+            print("useing saved time")
             lastUpdateTime = tmp
         }else{
             LoadData()
@@ -73,6 +76,7 @@ class Model: NSObject, XMLParserDelegate {
                 if let curVal = save.dictionary(forKey: "value") as? [String : Double]{
                     print(curVal)
                     currencyValue = curVal
+                    print("read above vals")
                 }else{
                     print("noting to read, doing update")
                     LoadData()
@@ -97,7 +101,6 @@ class Model: NSObject, XMLParserDelegate {
     }
     
     func calculate(_ _number: Double) -> Double?{
-        //NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)        
         if let to=currencyValue[toCurrency]{
             if let from = currencyValue[fromCurrency]{
                 return (_number/from)*to
@@ -116,17 +119,21 @@ class Model: NSObject, XMLParserDelegate {
                 let testXML = XMLParser(data: urlContent)
                 testXML.delegate = self
                 testXML.parse()
-                NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
+               // NotificationCenter.default.post(name: Notification.Name(rawValue: myNotificationKey), object: self)
                 //do save
-                self.save.set( self.currencyValue, forKey: "value")
+                self.save.set(self.currencyValue, forKey: "value")
+                //self.save.set(self.lastUpdateTime, forKey: "time")
+                self.save.synchronize()
+                print("saved")
+
             }
-        }) 
+        })
         task.resume()
     }
     
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]){
-        if let time = attributeDict["time"]{
+        if let time:String = attributeDict["time"]{
             lastUpdateTime = time
             save.setValue(time, forKey: "time")
             print(time)
